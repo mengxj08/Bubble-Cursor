@@ -68,10 +68,13 @@ void mousePressed(){
    {
      timeElapsed = millis()-startTime;
      runningTotalTime += timeElapsed;
-     if (numHits>0)
+     
+     if(numHits > 0){
        movementTimes[numHits-1] = (int)timeElapsed;
+     }
      numHits++;
      startTest();
+     //println(numHits);
    }
    else
    {
@@ -100,9 +103,9 @@ void initializePoints(float x,float y,float d) { // x cols, y rows, diameter d
   for (int i=0; i<x; i++) {
     posy = padding;
     for (int j=0; j<y; j++) {
-      pointsX[i*(int)x+j]= posx;
-      pointsY[i*(int)x+j]= posy;
-      diameter[i*(int)x+j]= d;
+      pointsX[i*(int)y+j]= posx;
+      pointsY[i*(int)y+j]= posy;
+      diameter[i*(int)y+j]= d;
       posy += disty;
     }
     posx += distx;
@@ -123,6 +126,7 @@ void selectTrial() {
     numClicks = 0;
     numHits = 0;
     numMisses = 0;
+    startTest();
   }
 }
 
@@ -139,8 +143,8 @@ case 0:
 // Trial two is cursor on
 case 1:
   regularCursor = false;
-  padding = 100;
-  initializePoints(5,5,20);
+  padding = 50;
+  initializePoints(8,8,20);
   break;
 
 // Trial three is cursor off large distance
@@ -235,6 +239,7 @@ void draw()
     // submit the data for this trial
     //submit();
     selectTrial();  
+    //println("SelectTrial");
   }
 
   background( 51 );
